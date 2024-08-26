@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import NavBar from './components/NavBar';
+import StudentDashboard from './components/StudentDashboard';
+import AdminDashboard from './components/AdminDashboard';
+import DarkModeToggle from './components/DarkModeToggle';
+import Login from './components/Login';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [isStudentView, setIsStudentView] = useState(true);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+    const handleStudentClick = () => setIsStudentView(true);
+    const handleAdminClick = () => setIsStudentView(false);
+
+    const handleLoginSuccess = () => setIsAuthenticated(true);
+
+    if (!isAuthenticated) {
+        return <Login onLoginSuccess={handleLoginSuccess} />;
+    }
+
+    return (
+        <div className="container">
+            <NavBar onStudentClick={handleStudentClick} onAdminClick={handleAdminClick} />
+            <DarkModeToggle />
+            {isStudentView ? <StudentDashboard /> : <AdminDashboard />}
+        </div>
+    );
 }
 
 export default App;

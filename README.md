@@ -1,70 +1,114 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+# Admin Dashboard Project
 
-In the project directory, you can run:
+## Overview
 
-### `npm start`
+This project is an Admin Dashboard application built with React. It includes features for processing CSV files, blocking and unblocking email addresses, exporting logs, and managing notification preferences. The project also supports dark mode and responsive design.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Features
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **CSV Processing:** Upload and process CSV files to extract and manage email addresses.
+- **Email Management:** Block and unblock email addresses based on CSV content.
+- **Export Logs:** Export logs in CSV or Excel format.
+- **Notification Preferences:** Manage notification settings.
+- **Analytics:** View active students and blocked emails.
+- **Audit Logs:** Track actions performed in the dashboard.
+- **Dark Mode:** Switch between light and dark themes.
+- **Responsive Design:** Adapt layout for different screen sizes.
 
-### `npm test`
+## Prerequisites
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Node.js (v14 or higher)
+- npm (v6 or higher)
 
-### `npm run build`
+## Getting Started
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Clone the Repository
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Install Dependencies
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Start the Development Server
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+The application will be accessible at `http://localhost:3000`.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## File Structure
 
-## Learn More
+- `src/`
+  - `components/`
+    - `AdminDashboard.js` - Admin dashboard with features for managing emails and logs.
+    - `DarkModeToggle.js` - Component to toggle dark mode.
+    - `Login.js` - Login page component.
+    - `NavBar.js` - Navigation bar component.
+    - `NotificationPreferences.js` - Manage notification preferences.
+    - `StudentDashboard.js` - Student dashboard page.
+  - `App.js` - Main application component.
+  - `index.js` - Entry point for React application.
+- `public/` - Public assets and index.html.
+- `package.json` - Project metadata and dependencies.
+- `.gitignore` - Files and directories to ignore in version control.
+- `README.md` - Project documentation.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Configuration
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Backend
 
-### Code Splitting
+Ensure your backend server is running and accessible at `http://localhost:5000`. This server handles login authentication and CSV processing.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Environment Variables
 
-### Analyzing the Bundle Size
+Create a `.env` file in the root directory with the following content:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```
+REACT_APP_API_URL=http://localhost:5000
+```
 
-### Making a Progressive Web App
+## Usage
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Login
 
-### Advanced Configuration
+1. Open the application.
+2. Navigate to the login page.
+3. Enter the username `sabarish` and password `1234`.
+4. Click "Login" to access the dashboard.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Admin Dashboard
 
-### Deployment
+- **Process CSV:** Upload a CSV file and click "Process CSV" to parse the file.
+- **Block Emails:** Click "Block Emails" to block all emails listed in the CSV.
+- **Unblock Emails:** Click "Unblock Emails" to unblock all emails listed in the CSV.
+- **Export Logs:** Click "Export Logs" to export logs in CSV or Excel format.
+- **Clear Logs:** Click "Clear Logs" to remove all logs from the audit log section.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Notification Preferences
 
-### `npm run build` fails to minify
+Manage your notification settings by checking or unchecking the respective boxes.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Dark Mode
+
+Toggle dark mode using the Dark Mode button.
+
+## Contributing
+
+Contributions are welcome! Please fork the repository and submit a pull request with your changes.
+
+1. Fork the repository.
+2. Create a new branch for your feature or fix.
+3. Make your changes.
+4. Commit your changes and push to your fork.
+5. Submit a pull request to the main repository.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Contact
+
+For any questions or feedback, please contact [your email](mailto:youremail@example.com).
+
+---
+
+Feel free to adjust the content, such as repository URLs, contact information, or any other specific details based on your project's needs.

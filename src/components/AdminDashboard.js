@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Papa from 'papaparse'; // For parsing CSV files
+import Papa from 'papaparse';
 
 const AdminDashboard = () => {
     const [showExportForm, setShowExportForm] = useState(false);
@@ -10,25 +10,32 @@ const AdminDashboard = () => {
     const [showUnblockButton, setShowUnblockButton] = useState(false);
     const [logMessage, setLogMessage] = useState('');
     const [auditLogs, setAuditLogs] = useState([]);
+    const [filterDomain, setFilterDomain] = useState('');
+    const [errorLogs, setErrorLogs] = useState([]);
+    const [darkMode, setDarkMode] = useState(false);
 
     const handleProcessCSV = () => {
         const file = document.getElementById('csvFile').files[0];
         const logOutput = document.getElementById('logOutput');
-        
+
         if (file) {
             Papa.parse(file, {
                 header: true,
                 complete: (result) => {
-                    const emails = result.data.map(row => row.email).filter(email => email);
+                    const emails = result.data
+                        .map(row => row.email)
+                        .filter(email => email && (!filterDomain || email.endsWith(filterDomain)));
+                    
                     setEmailList(emails);
-                    setActiveStudentsCount(emails.length); // Assuming each email represents an active student
-                    setBlockedEmailsCount(0); // Assuming blocked emails count is 0 initially
+                    setActiveStudentsCount(emails.length);
+                    setBlockedEmailsCount(0);
                     setShowBlockButton(true);
                     setShowUnblockButton(true);
                     setAuditLogs(prevLogs => [...prevLogs, 'CSV file processed successfully']);
                     setLogMessage('CSV file processed successfully.');
                 },
                 error: (error) => {
+                    setErrorLogs(prevErrors => [...prevErrors, error.message]);
                     setLogMessage('Error processing CSV file.');
                 }
             });
@@ -38,17 +45,15 @@ const AdminDashboard = () => {
     };
 
     const handleBlockEmails = () => {
-        // Simulate blocking emails
         console.log('Blocking emails:', emailList);
-        setBlockedEmailsCount(emailList.length); // Update blocked emails count
+        setBlockedEmailsCount(emailList.length);
         setLogMessage('Emails blocked successfully!');
         setAuditLogs(prevLogs => [...prevLogs, 'Emails blocked successfully']);
     };
 
     const handleUnblockEmails = () => {
-        // Simulate unblocking emails
         console.log('Unblocking emails:', emailList);
-        setBlockedEmailsCount(0); // Update blocked emails count
+        setBlockedEmailsCount(0);
         setLogMessage('Emails unblocked successfully!');
         setAuditLogs(prevLogs => [...prevLogs, 'Emails unblocked successfully']);
     };
@@ -62,14 +67,26 @@ const AdminDashboard = () => {
     };
 
     const handleClearLogs = () => {
-        setAuditLogs([]); // Clear all audit logs
-        setLogMessage(''); // Clear the log message
+        setAuditLogs([]);
+        setLogMessage('');
+    };
+
+    const handleToggleDarkMode = () => {
+        setDarkMode(!darkMode);
     };
 
     return (
-        <div id="adminDashboard" className="dashboard">
+        <div id="adminDashboard" className={`dashboard ${darkMode ? 'dark-mode' : ''}`}>
             <h2>Admin Dashboard</h2>
             <div className="dashboard-content">
+                <label htmlFor="domainFilter">Filter by domain:</label>
+                <input
+                    type="text"
+                    id="domainFilter"
+                    placeholder="@example.com"
+                    value={filterDomain}
+                    onChange={(e) => setFilterDomain(e.target.value)}
+                />
                 <input type="file" id="csvFile" className="file-input" />
                 <button id="processCSV" className="btn-primary" onClick={handleProcessCSV}>
                     Process CSV
@@ -90,6 +107,9 @@ const AdminDashboard = () => {
                 </button>
                 <button id="clearLogs" className="btn-secondary" onClick={handleClearLogs}>
                     Clear Logs
+                </button>
+                <button id="toggleDarkMode" className="btn-secondary" onClick={handleToggleDarkMode}>
+                    Toggle Dark Mode
                 </button>
                 <div id="exportForm" className={showExportForm ? 'export-form' : 'hidden'}>
                     <h3>Export Logs</h3>
@@ -112,6 +132,12 @@ const AdminDashboard = () => {
                     <div id="auditLogsOutput" className="log-output">
                         {auditLogs.map((log, index) => (
                             <p key={index}>{log}</p>
+                        ))}
+                    </div>
+                    <h3>Error Logs</h3>
+                    <div id="errorLogsOutput" className="log-output">
+                        {errorLogs.map((error, index) => (
+                            <p key={index}>{error}</p>
                         ))}
                     </div>
                 </div>

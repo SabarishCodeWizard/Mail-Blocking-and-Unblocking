@@ -6,23 +6,31 @@ import DarkModeToggle from './components/DarkModeToggle';
 import Login from './components/Login';
 
 function App() {
-    const [isStudentView, setIsStudentView] = useState(true);
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [isStudentView, setIsStudentView] = useState(false);
+    const [isAdminView, setIsAdminView] = useState(false);
 
-    const handleStudentClick = () => setIsStudentView(true);
-    const handleAdminClick = () => setIsStudentView(false);
+    // Handle Google Login Success (Student)
+    const handleStudentLogin = () => {
+        setIsStudentView(true);
+        setIsAdminView(false);
+    };
 
-    const handleLoginSuccess = () => setIsAuthenticated(true);
+    // Handle Username/Password Login Success (Admin)
+    const handleAdminLogin = () => {
+        setIsAdminView(true);
+        setIsStudentView(false);
+    };
 
-    if (!isAuthenticated) {
-        return <Login onLoginSuccess={handleLoginSuccess} />;
+    if (!isStudentView && !isAdminView) {
+        return <Login onStudentLogin={handleStudentLogin} onAdminLogin={handleAdminLogin} />;
     }
 
     return (
         <div className="container">
-            <NavBar onStudentClick={handleStudentClick} onAdminClick={handleAdminClick} />
-            <DarkModeToggle />
-            {isStudentView ? <StudentDashboard /> : <AdminDashboard />}
+            <NavBar />
+            <DarkModeToggle />  
+            {isStudentView && <StudentDashboard />}
+            {isAdminView && <AdminDashboard />}
         </div>
     );
 }

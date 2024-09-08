@@ -19,29 +19,31 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
-const Login = ({ onLoginSuccess }) => {
+const Login = ({ onStudentLogin, onAdminLogin }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
+    // Handle Username/Password Login (Admin Login)
     const handleLogin = async (e) => {
         e.preventDefault();
 
         try {
             const response = await axios.post('http://localhost:5000/login', { username, password });
             localStorage.setItem('authToken', response.data.token);
-            onLoginSuccess();
+            onAdminLogin(); // Call the admin login handler
         } catch (err) {
             setError('Invalid credentials');
         }
     };
 
+    // Handle Google Login (Student Login)
     const handleGoogleLogin = async () => {
         try {
             const result = await signInWithPopup(auth, provider);
             const token = await result.user.getIdToken();
             localStorage.setItem('authToken', token);
-            onLoginSuccess();
+            onStudentLogin(); // Call the student login handler
         } catch (err) {
             setError('Google authentication failed');
         }
@@ -65,11 +67,11 @@ const Login = ({ onLoginSuccess }) => {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                 />
-                <button type="submit">Login</button>
+                <button type="submit">Login as Admin</button>
             </form>
-            <div className='google-container'>
+            <div className="google-container">
                 <button onClick={handleGoogleLogin} className="google">
-                    Sign in with Google
+                    Sign in with Google (Student)
                 </button>
                 {error && <p className="error">{error}</p>}
             </div>

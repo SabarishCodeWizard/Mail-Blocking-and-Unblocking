@@ -7,6 +7,12 @@
     min-height: 100vh;
     background: #f4f4f4;
     padding: 20px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(-20px); }
+    100% { opacity: 1; transform: translateY(0); }
 }
 
 .login-container h2 {
@@ -42,11 +48,12 @@
     border-radius: 4px;
     font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .login-container button:hover {
     background-color: #0056b3;
+    transform: scale(1.05);
 }
 
 .login-container .error {
@@ -54,18 +61,8 @@
     margin-top: 15px;
     font-size: 14px;
 }
-/* Responsive Design */
-@media (max-width: 480px) {
-    .login-container form {
-        width: 90%;
-        padding: 15px;
-    }
-    
-    .login-container input, 
-    .login-container button {
-        font-size: 14px;
-    }
-}
+
+/* Google Button */
 .google {
     width: 100%;
     padding: 10px;
@@ -76,9 +73,69 @@
     border-radius: 4px;
     font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-.google {
+.google:hover {
     background-color: #c23321;
+    transform: scale(1.05);
+}
+
+/* Phone Container */
+.phone-container {
+    width: 100%;
+    max-width: 400px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.phone-container input {
+    width: calc(100% - 20px);
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.phone-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.phone-container button:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+
+/* Recaptcha Container */
+#recaptcha-container {
+    margin-top: 15px;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    .login-container form, 
+    .phone-container {
+        width: 90%;
+        padding: 15px;
+    }
+    
+    .login-container input, 
+    .login-container button, 
+    .google,
+    .phone-container input,
+    .phone-container button {
+        font-size: 14px;
+    }
 }
